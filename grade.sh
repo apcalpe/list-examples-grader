@@ -14,3 +14,25 @@ echo 'Finished cloning'
 
 # Then, add here code to compile and run, and do any post-processing of the
 # tests
+
+
+set -e
+
+file=`find student-submission -name "ListExamples.java"`
+
+if [[ -f $file ]]
+then
+    echo "Correct File"
+else
+    echo "Wrong File Submitted"
+    exit
+fi
+
+
+cp $file grading-area
+cp TestListExamples.java grading-area
+echo 'Files Moved'
+
+cd grading-area
+javac -cp $CPATH ListExamples.java TestListExamples.java
+java -cp $CPATH org.junit.runner.JUnitCore TestListExamples
