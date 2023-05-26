@@ -22,7 +22,7 @@ file=`find student-submission -name "ListExamples.java"`
 
 if [[ -f $file ]]
 then
-    echo "Correct File"
+    echo "Correct File Submitted"
 else
     echo "Wrong File Submitted"
     exit
@@ -31,8 +31,17 @@ fi
 
 cp $file grading-area
 cp TestListExamples.java grading-area
-echo 'Files Moved'
+cp -r lib grading-area
+
+set +e
 
 cd grading-area
-javac -cp $CPATH ListExamples.java TestListExamples.java
+javac -cp $CPATH *.java
 java -cp $CPATH org.junit.runner.JUnitCore TestListExamples
+
+if [[ $? -eq 1 ]]
+then 
+    echo "Test passed"
+else
+    echo "Test failed"
+fi
