@@ -18,7 +18,7 @@ echo 'Finished cloning'
 
 set -e
 
-file=`find student-submission -name "ListExamples.java"`
+file=`find student-submission -maxdepth 1 -name "ListExamples.java"`
 
 if [[ -f $file ]]
 then
@@ -41,7 +41,7 @@ java -cp $CPATH org.junit.runner.JUnitCore TestListExamples
 
 if [[ $? -eq 1 ]]
 then 
-    echo "Test passed"
-else
     echo "Test failed"
+else
+    echo "Test passed"
 fi
